@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema(
     weight: { type: String },
     type: { type: String },
     price: { type: Number, required: true },
-    stockQuantity: { type: Number },
+    inStock: { type: Boolean, default:true },
   },
   { timestamps: true }
 );
