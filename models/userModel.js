@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
-  username: {
+  name: {
     type: String,
     min: [4, "Too short, min is 4 characters"],
     max: [32, "Too long, max is 32 characters"],
-    required: "Username is Required",
+    required: [true, "Name is Required!"],
   },
   email: {
     type: String,
@@ -13,20 +13,20 @@ const UserSchema = new Schema({
     max: [32, "Too long, max is 32 characters"],
     unique: true,
     lowercase: true,
-    required: "Email is Required",
+    required: [true, "Email is Required!"],
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/],
   },
   password: {
     type: String,
     min: [8, "Too short, min is 8 characters"],
     max: [32, "Too long, max is 32 characters"],
-    required: "Password is Required",
+    required: [true, "Password is Required!"],
   },
   isAdmin: {
     type: Boolean
   },
-  timestamps: true,
-});
+  
+},{timestamps: true} );
 
 const User = model("users", UserSchema);
 
