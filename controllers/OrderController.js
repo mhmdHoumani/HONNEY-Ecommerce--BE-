@@ -69,10 +69,10 @@ class OrderController {
       const del = await Order.findByIdAndDelete({ _id: id })
       if (del){
         res.status(200);
-        return res.json({message: "Delete successfully!"})
+        return res.json({message: "Successfully deleted!"})
       }
       res.status(404);
-      return res.json({ message: "not an order!" });
+      return res.json({ message: "No product selected!" });
 
 
     }
