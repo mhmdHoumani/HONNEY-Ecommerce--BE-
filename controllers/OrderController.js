@@ -29,29 +29,63 @@ class OrderController {
     }
   };
 
-  put(req, res, next) {
-    let { id } = req.params;
-    let body = req.body;
-    Order.updateOne(
-      { _id: id },
-      {
-        $set: body,
-      },
-      (err, response) => {
-        if (err) return next(err);
+  put = async (req, res, next) => {
+    const {id} = req.params;
+    const {total, address, product_id}=req.body;
+    if(!total || !address || !product_id){
+      res.status(400);
+      return res.json({ message: "All field are required" });
+    }
+
+    try{
+      const result = await Order.findOneAndUpdate({_id: id}, {
+        total,
+        address,
+        product_id
+      })
+      if(result){
         res.status(200);
-        res.json({ message: "Updated successfully!", data: response });
+        return res.json({ message: "Update successfully" });
+        
       }
-    );
+      res.status(404);
+      return res.json({ message: "Order not found" });
+
+
+    }
+    catch{
+      res.status(500)
+      return res.json({ message: "Something went wrong!" });
+
+    }
+
+  }
+  
+
+  delete = async(req, res, next)=>{
+    const {id} = req.params;
+
+    try{
+      const del = await Order.findByIdAndDelete({ _id: id })
+      if (del){
+        res.status(200);
+        return res.json({message: "Delete successfully!"})
+      }
+      res.status(404);
+      return res.json({ message: "not an order!" });
+
+
+    }
+    catch{
+      res.status(500)
+      return res.json({ message: "Something went wrong!" });
+
+    }
+
   }
 
-  delete(req, res, next) {
-    let { id } = req.params;
-    Order.deleteOne({ _id: id }, (err, response) => {
-      if (err) return next(err);
-      res.status(200).send(response);
-    });
-  }
+
+
 }
 
 const ordersController = new OrderController();

@@ -7,6 +7,6 @@ router.get('/', protect, OrderController.getAll);
 router.get('/:id', protect, OrderController.get);
 router.post('/', protect, OrderController.post);
 router.put('/:id', protect, OrderController.put);
-// router.delete('/:id', protect, OrderController.delete);
+router.delete('/:id', protect, OrderController.delete);
 
 module.exports = router;
