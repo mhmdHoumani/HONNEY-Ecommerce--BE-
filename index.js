@@ -7,8 +7,12 @@ const order = require("./routes/Order.js");
 const user = require("./routes/user.js");
 const products = require("./routes/products.js");
 const bodyParser = require("body-parser");
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use('/uploads', express.static('./uploads'));
 
 dotenv.config();
 connectDB();

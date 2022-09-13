@@ -2,7 +2,16 @@ const Product = require("../models/productModel");
 
 class ProductControllerClass {
   post = async (req, res) => {
-    const newProduct = new Product(req.body);
+    const newProduct = new Product({
+      title: req.body.title,
+      desc: req.body.desc,
+      img: req.file && req.file.path,
+      categories: req.body.categories,
+      weight: req.body.weight,
+      type: req.body.type,
+      price: req.body.price,
+      stockQuantity: req.body.stockQuantity,
+    });
     try {
       const savedProduct = await newProduct.save();
       res.status(200).json(savedProduct);
@@ -16,7 +25,7 @@ class ProductControllerClass {
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
         {
-          $set: req.body,
+          $set: req.body && req.file.path,
         },
         { new: true }
       );
