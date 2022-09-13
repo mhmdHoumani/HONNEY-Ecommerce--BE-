@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 const connectDB = require("./configuration/db.js");
 const port = process.env.PORT || 5000;
 const dotenv = require("dotenv");
@@ -8,6 +9,8 @@ const user = require("./routes/user.js");
 const products = require("./routes/products.js");
 const bodyParser = require("body-parser");
 
+app.use(cors());
+// 50dedec0a831924cafcd473f4b248d1a749a4873
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

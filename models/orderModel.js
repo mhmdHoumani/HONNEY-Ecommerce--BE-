@@ -6,11 +6,12 @@ const OrderSchema = new Schema({
   //     ref: 'user',
   //     required: true
   // },
-  // product_id: {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'product',
-  //     required: true
-  // },
+  
+  product_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'product',
+      required: true
+  },
   total: {
     type: "number",
     required: true,

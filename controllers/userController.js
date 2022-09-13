@@ -61,6 +61,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      admin: user.isAdmin,
       token:generateToken(user._id),
     });
   } else {
@@ -83,15 +84,6 @@ const getMe = asyncHandler(async(req, res) => {
   
 });
 
-const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
-    next();
-  } else {
-    res.status(401);
-    throw new Error("Not authorized as an admin!");
-  }
-};
-
 //Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
@@ -101,5 +93,4 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
-  admin,
 };

@@ -79,6 +79,8 @@ class ProductControllerClass {
       res.status(500).json(err);
     }
   };
+
+  
 }
 
 const productContollerClass = new ProductControllerClass();
