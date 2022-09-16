@@ -1,22 +1,34 @@
 const Product = require("../models/productModel");
+const cloudinary = require("../middlewares/cloudinary");
+const upload = require("../middlewares/upload");
 
 class ProductControllerClass {
   post = async (req, res) => {
+
+    try{
+    const imageResult = await cloudinary.uploader.upload(req.file.path);
+    // res.json(imageResult);
+
     const newProduct = new Product({
       title: req.body.title,
       desc: req.body.desc,
-      img: req.file && req.file.path,
+      // img: req.file && req.file.path,
+
+      avatar: imageResult.secure_url,
+      cloudinary_id: imageResult.public_id,
+
       categories: req.body.categories,
       weight: req.body.weight,
       type: req.body.type,
       price: req.body.price,
       stockQuantity: req.body.stockQuantity,
     });
-    try {
+   
       const savedProduct = await newProduct.save();
       res.status(200).json(savedProduct);
     } catch (err) {
       res.status(500).json(err);
+      console.log("Error posting product");
     }
   };
 
@@ -79,8 +91,6 @@ class ProductControllerClass {
       res.status(500).json(err);
     }
   };
-
-  
 }
 
 const productContollerClass = new ProductControllerClass();
