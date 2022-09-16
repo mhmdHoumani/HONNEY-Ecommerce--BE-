@@ -9,7 +9,9 @@ class ProductControllerClass {
       categories: req.body.categories,
       weight: req.body.weight,
       type: req.body.type,
-      price: req.body.price,
+      price_1kg: req.body.price_1kg,
+      price_500g: req.body.price,_500g,
+
       stockQuantity: req.body.stockQuantity,
     });
     try {

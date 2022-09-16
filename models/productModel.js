@@ -8,7 +8,8 @@ const productSchema = new mongoose.Schema(
     categories: { type: Array },
     weight: { type: String },
     type: { type: String },
-    price: { type: Number, required: true },
+    price_1kg: { type: Number, default:NaN},
+    price_500g: {type: Number, default:NaN},
     stockQuantity: { type: Number },
  
   },{timestamps: true}
