@@ -50,6 +50,7 @@ class ProductControllerClass {
   delete = async (req, res) => {
     try {
       await Product.findByIdAndDelete(req.params.id);
+      await cloudinary.uploader.destroy(req.params.id.cloudinary_id);
       res.status(200).json("Product has been deleted...");
     } catch (err) {
       res.status(500).json(err);
